@@ -21,24 +21,12 @@ class Table extends React.Component {
             {id}
             {month}/{day}
           </td>
-          <td>
-              {reads[0].moistureNum}
-          </td>
-          <td>
-              {reads[1].moistureNum}
-          </td>
-          <td>
-              {reads[2].moistureNum}
-          </td>
-          <td>
-              {reads[3].moistureNum}
-          </td>
-          <td>
-              {reads[4].moistureNum}
-          </td>
-          <td>
-              {reads[5].moistureNum}
-          </td>
+          <td>{reads[0].moistureNum}</td>
+          <td>{reads[1].moistureNum}</td>
+          <td>{reads[2].moistureNum}</td>
+          <td>{reads[3].moistureNum}</td>
+          <td>{reads[4].moistureNum}</td>
+          <td>{reads[5].moistureNum}</td>
         </tr>
       );
     });
