@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import socketIOClient  from 'socket.io-client';
 
 import "./moistureStream.scss";
@@ -6,28 +6,41 @@ import "./moistureStream.scss";
 const socket = socketIOClient('http://localhost:3006');
 
 const MoistureStream = () => {
-  const [moistureStatus, setMoistureStatus] = useState(0);
-  const [moistureIndicatorColor, setMoistureIndicatorColor] = useState(
-    "dryStyle"
-  );
+  const [moistureNumber, setMoistureNumber] = useState(0);
+  const [moistureStatus, setMoistureStatus] = useState("dry");
+  const [moistureIndicatorColor, setMoistureIndicatorColor] = useState("dryStyle");
 
-  socket.on('moisture-data', (data) => {
-    data = JSON.parse(data);
-    setMoistureStatus(data.moistureNumber);
 
-    if(moistureStatus <= 150 ){
-      setMoistureIndicatorColor(`dryStyle`);
-    } else if (moistureStatus >= 151 || moistureStatus <= 250 ){
-      setMoistureIndicatorColor(`moistStyle`);
-    } else{
-      setMoistureIndicatorColor('wetStyle');
-    }
+    
+  useEffect(() => {
+    socket.on('moisture-data', (data) => {
+      data = JSON.parse(data);
+      setMoistureNumber(data.moistureNumber);
+  
+      if(moistureNumber <= 150 ){
+        setMoistureStatus("Dry");
+        setMoistureIndicatorColor(`dryStyle`);
+      } else if (moistureNumber >= 151 || moistureNumber <= 250 ){
+        setMoistureStatus("Moist");
+        setMoistureIndicatorColor(`moistStyle`);
+      } else{
+        setMoistureStatus("Wet");
+        setMoistureIndicatorColor('wetStyle');
+      }
+    })
   })
+
+
+
+
+
 
   return (
     <section className="moistureStream">
-      <h2>Moisture Number: {moistureStatus}</h2>
+      <h2>Moisture Number: {moistureNumber}</h2>
+      <h2>Moisture Status: {moistureStatus}</h2>
       <div className={moistureIndicatorColor} />
+      <p>Legend: 0 - 150 Dry, 151 - 250 Moist, 250+ Wet</p>
     </section>
   );
 };

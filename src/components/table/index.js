@@ -14,11 +14,10 @@ class Table extends React.Component {
 
   renderTableData() {
     return this.state.days.map((days, index) => {
-      const { id, day, month, reads } = days;
+      const { day, month, reads } = days;
       return (
         <tr key={index}>
           <td>
-            {id}
             {month}/{day}
           </td>
           <td>{reads[0].moistureNum}</td>

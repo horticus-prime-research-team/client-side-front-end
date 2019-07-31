@@ -5,6 +5,7 @@ import superagent from "superagent";
 import MoistureStream from "../moistureStream";
 import Table from "../table";
 import Chart from "../chart";
+import User from "../users";
 import Logo from "../../assets/plantLogo.png"
 
 import "./login.scss"
@@ -77,8 +78,7 @@ class Login extends React.Component {
         <MoistureStream />
         <Table />
         <Chart />
-
-        
+        <User />
       </>
     );
   }
