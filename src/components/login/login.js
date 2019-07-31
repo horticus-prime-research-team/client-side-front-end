@@ -46,9 +46,6 @@ class Login extends React.Component {
         <If condition={this.context.loggedIn}>
           <button onClick={this.context.logout}>Log Out</button>
           {/* Add here MoistureStream, Table and Chart after editing */}
-          <MoistureStream />
-          <Table />
-          <Chart />
 
 
 
@@ -77,6 +74,9 @@ class Login extends React.Component {
           </section>
         </If>
 
+        <MoistureStream />
+        <Table />
+        <Chart />
 
         
       </>

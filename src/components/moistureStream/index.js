@@ -1,40 +1,33 @@
 import React, { useState } from "react";
+import socketIOClient  from 'socket.io-client';
+
 import "./moistureStream.scss";
 
+const socket = socketIOClient('http://localhost:3006');
+
 const MoistureStream = () => {
-  const [moistureStatus, setMoistureStatus] = useState("dry");
+  const [moistureStatus, setMoistureStatus] = useState(0);
   const [moistureIndicatorColor, setMoistureIndicatorColor] = useState(
     "dryStyle"
   );
 
+  socket.on('moisture-data', (data) => {
+    data = JSON.parse(data);
+    setMoistureStatus(data.moistureNumber);
 
-  // Socket IO function
-  const getMoistureData = e => {
-    e.preventDefault();
-
-
-    // Get the API data - Breakdown payload wet, dry, moist and number?
-    const payload = { number: 500, status: "wet" };
-
-
-    setMoistureStatus(payload.status);
-    changeButtonColor(payload.status);
-  };
-  //
-
-
-
-  const changeButtonColor = moistureLevel => {
-    setMoistureIndicatorColor(`${moistureLevel}Style`);
-  };
+    if(moistureStatus <= 150 ){
+      setMoistureIndicatorColor(`dryStyle`);
+    } else if (moistureStatus >= 151 || moistureStatus <= 250 ){
+      setMoistureIndicatorColor(`moistStyle`);
+    } else{
+      setMoistureIndicatorColor('wetStyle');
+    }
+  })
 
   return (
     <section className="moistureStream">
-      <h2>Moisture Content: {moistureStatus}</h2>
+      <h2>Moisture Number: {moistureStatus}</h2>
       <div className={moistureIndicatorColor} />
-      <form onSubmit={e => getMoistureData(e)}>
-        <input type="Submit" />
-      </form>
     </section>
   );
 };
