@@ -34,6 +34,7 @@ VSCode, Trello, Github, git, Node.js, Express, Raspberry Pi, a Grove Moisture Se
 ### Version 1.0.0
 ### Libraries and Frameworks
 * React
+* Styleguidist
 * Hooks
 * Mongoose
 * MongoDB
