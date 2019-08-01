@@ -11,7 +11,7 @@ import Logo from "../../assets/plantLogo.png"
 import "./login.scss"
 
 // const API = process.env.REACT_APP_API;
-const API = "https://api-js401.herokuapp.com";
+const API = "https://polar-springs-72876.herokuapp.com";
 
 const If = props => {
   return !!props.condition ? props.children : null;
@@ -22,7 +22,7 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "" };
+    this.state = { email: "", password: "" };
   }
 
   handleChange = e => {
@@ -32,8 +32,8 @@ class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     superagent
-      .post(`${API}/signin`)
-      .auth(this.state.username, this.state.password)
+      .get(`${API}/signin`)
+      .auth(this.state.email, this.state.password)
       .then(response => {
         let token = response.text;
         this.context.login(token);
@@ -48,7 +48,10 @@ class Login extends React.Component {
           <button onClick={this.context.logout}>Log Out</button>
           {/* Add here MoistureStream, Table and Chart after editing */}
 
-
+          <MoistureStream />
+          <Table />
+          <Chart />
+          <User />
 
 
         </If>
@@ -60,8 +63,8 @@ class Login extends React.Component {
 
             <form className="loginForm" onSubmit={this.handleSubmit}>
               <input
-                placeholder="UserName"
-                name="username"
+                placeholder="Email"
+                name="email"
                 onChange={this.handleChange}
               />
 
@@ -74,11 +77,6 @@ class Login extends React.Component {
             </form>
           </section>
         </If>
-
-        <MoistureStream />
-        <Table />
-        <Chart />
-        <User />
       </>
     );
   }

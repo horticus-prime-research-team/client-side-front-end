@@ -1,5 +1,7 @@
 import React from "react";
 import DATA from "./data.json";
+import superagent from "superagent";
+import * as moment from 'moment';
 
 import "./table.scss"
 
@@ -12,20 +14,39 @@ class Table extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.handleSubmit();
+  }
+
+  handleSubmit = e => {
+    superagent
+      .get(`https://polar-springs-72876.herokuapp.com/moisture`)
+      .query({year: moment().format('YYYY'), month: moment().format('MM'), day: moment().format('DD')})
+      .then(response => {
+        // console.log('RESPONSE', JSON.parse(response.text)[0].reads);
+        let data = JSON.parse(response.text)[0].reads
+        this.setState({days: data});
+      })
+      .catch(err => console.error(err));
+  };
+
   renderTableData() {
-    return this.state.days.map((days, index) => {
-      const { day, month, reads } = days;
+    return this.state.days.map((day, index) => {
       return (
-        <tr key={index}>
-          <td>
-            {month}/{day}
+        <tr className='tr' key={index}>
+          <td className='td'>
+           {moment(day.timestamp).format('YYYY')}
           </td>
-          <td>{reads[0].moistureNum}</td>
-          <td>{reads[1].moistureNum}</td>
-          <td>{reads[2].moistureNum}</td>
-          <td>{reads[3].moistureNum}</td>
-          <td>{reads[4].moistureNum}</td>
-          <td>{reads[5].moistureNum}</td>
+          <td className='td'>
+           {moment(day.timestamp).format('MM')}
+          </td>
+          <td className='td'>
+           {moment(day.timestamp).format('DD')}
+          </td>
+          <td className='td'>
+           {moment(day.timestamp).format('hh')}:{moment(day.timestamp).format('mm')}
+          </td>
+          <td className='td'>{day.moistureNumber}</td>
         </tr>
       );
     });
@@ -34,13 +55,11 @@ class Table extends React.Component {
   renderTableHeader() {
     return (
       <>
-        <th>Day</th>
-        <th>00:00</th>
-        <th>04:00</th>
-        <th>08:00</th>
-        <th>12:00</th>
-        <th>16:00</th>
-        <th>20:00</th>
+        <th className='th'>Years</th>
+        <th className='th'>Months</th>
+        <th className='th'>Days</th>
+        <th className='th'>Time</th>
+        <th className='th'>Data</th>
       </>
     );
   }
@@ -54,15 +73,12 @@ class Table extends React.Component {
     return (
       <div>
         <h1 id="title">Moisture Level</h1>
-        <table>
+        <table className='table'>
           <tbody>
             <tr>{this.renderTableHeader()}</tr>
             {this.renderTableData()}
           </tbody>
         </table>
-        <form onSubmit={e => this.getDatafromdb(e)}>
-          <input type="Submit" />
-        </form>
       </div>
     );
   }

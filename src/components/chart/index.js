@@ -1,5 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import superagent from "superagent";
+import * as moment from 'moment';
 
 export default class BarGraph extends React.Component {
   constructor(props) {
@@ -20,37 +22,45 @@ export default class BarGraph extends React.Component {
             label: "Moisture Level",
             backgroundColor: "rgb(255, 99, 132)",
             borderColor: "rgb(255, 99, 132)",
-            data: [0, 10, 5, 2, 20, 30, 45]
+            data: [0, 10, 5, 2, 20, 30, 45],
+            fill: false
           }
         ]
-      }
+      },
+      reading: []
     };
   }
 
-  getDatafromdb = e => {
-    e.preventDefault();
+  componentDidMount() {
+    console.log('handleSubmit');
+    this.handleSubmit();
+  }
 
-    // Api db request AKA results then...
-    let incomingData = {
-      year: 2019,
-      month: 7,
-      day: 28,
-      reads: [
-        { timeStamp: "2019-07-30T00:00:53.798Z", moistureNum: 300 },
-        { timeStamp: "2019-07-30T00:15:53.798Z", moistureNum: 250 },
-        { timeStamp: "2019-07-30T00:30:53.798Z", moistureNum: 225 }
-      ]
-    };
+  handleSubmit = e => {
+    superagent
+      .get(`https://polar-springs-72876.herokuapp.com/moisture`)
+      .query({year: moment().format('YYYY'), month: moment().format('MM'), day: moment().format('DD')})
+      .then(response => {
+        // console.log('RESPONSE', JSON.parse(response.text)[0].reads);
+        let data = JSON.parse(response.text)[0].reads
+        this.setState({reading: data});
+        console.log('READING', this.state.reading);
+        this.getDataFromDB();
+      })
+      .catch(err => console.error(err));
+  };
 
-    let newTime = incomingData.reads.reduce((acc, curr) => {
-      curr = new Date(curr.timeStamp);
-      curr = `${curr.getHours()}:${curr.getMinutes()}`;
+  getDataFromDB = e => {
+    let newTime = this.state.reading.reduce((acc, curr) => {
+      // console.log(curr.timestamp);
+      // curr = new Date(curr.timeStamp);
+      curr = `${moment(curr.timestamp).format('HH')}:${moment(curr.timestamp).format('mm')}`;
       acc.push(curr);
       return acc;
     }, []);
 
-    let newMoistureNum = incomingData.reads.reduce((acc, curr) => {
-      curr = curr.moistureNum;
+    let newMoistureNum = this.state.reading.reduce((acc, curr) => {
+      curr = curr.moistureNumber;
       acc.push(curr);
       return acc;
     }, []);
@@ -70,9 +80,9 @@ export default class BarGraph extends React.Component {
     return (
       <div>
         <Line data={this.state.data} />
-        <form onSubmit={e => this.getDatafromdb(e)}>
+        {/* <form onSubmit={e => this.getDatafromdb(e)}>
           <input type="Submit" />
-        </form>
+        </form> */}
       </div>
     );
   }

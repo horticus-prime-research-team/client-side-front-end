@@ -3,49 +3,36 @@ import socketIOClient  from 'socket.io-client';
 
 import "./moistureStream.scss";
 
-const socket = socketIOClient('http://localhost:3006');
+const socket = socketIOClient('https://calm-river-80577.herokuapp.com');
 
 const MoistureStream = () => {
   const [moistureNumber, setMoistureNumber] = useState(0);
   const [moistureStatus, setMoistureStatus] = useState("dry");
   const [moistureIndicatorColor, setMoistureIndicatorColor] = useState("dryStyle");
-
-
     
   useEffect(() => {
     socket.on('moisture-data', (data) => {
-      data = JSON.parse(data);
-      setMoistureNumber(data.moistureNumber);
+      setMoistureNumber(data.val);
   
-      if(data.moistureNumber <= 150 ){
-        console.log(data.moistureNumber);
-        console.log('we dry folks');
+      if(data.val <= 299 ){
         setMoistureStatus("Dry");
         setMoistureIndicatorColor(`dryStyle`);
-      } else if (data.moistureNumber >= 151 && data.moistureNumber <= 250 ){
-        console.log('we moist folks');
+      } else if (data.val >= 300 && data.val <= 599 ){
         setMoistureStatus("Moist");
         setMoistureIndicatorColor(`moistStyle`);
       } else{
-        console.log(data.moistureNumber);
-        console.log('we wet folks');
         setMoistureStatus("Wet");
         setMoistureIndicatorColor('wetStyle');
       }
     })
   }, []);
 
-
-
-
-
-
   return (
     <section className="moistureStream">
-      <h2>Moisture Number: {moistureNumber}</h2>
-      <h2>Moisture Status: {moistureStatus}</h2>
+      <h2 className='number'>Moisture Number: {moistureNumber}</h2>
       <div className={moistureIndicatorColor} />
-      <p>Legend: 0 - 150 Dry, 151 - 250 Moist, 250+ Wet</p>
+      <h2 className='status'>Moisture Status: {moistureStatus}</h2>
+      <p className='legend'>Legend: 0 - 299 Dry, 300 - 599 Moist, 600+ Wet</p>
     </section>
   );
 };
