@@ -34,7 +34,7 @@ class Users extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
     console.log(e.target.value);
   };
-
+  
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
