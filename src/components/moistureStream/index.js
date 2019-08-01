@@ -9,8 +9,6 @@ const MoistureStream = () => {
   const [moistureNumber, setMoistureNumber] = useState(0);
   const [moistureStatus, setMoistureStatus] = useState("dry");
   const [moistureIndicatorColor, setMoistureIndicatorColor] = useState("dryStyle");
-
-
     
   useEffect(() => {
     socket.on('moisture-data', (data) => {

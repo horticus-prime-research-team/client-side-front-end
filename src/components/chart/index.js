@@ -1,5 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import superagent from "superagent";
+import * as moment from 'moment';
 
 export default class BarGraph extends React.Component {
   constructor(props) {

@@ -1,8 +1,6 @@
 import React from "react";
 import superagent from "superagent";
 
-
-
 class Users extends React.Component {
   constructor(props) {
     super(props);

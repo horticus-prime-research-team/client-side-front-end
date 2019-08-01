@@ -1,5 +1,7 @@
 import React from "react";
 import DATA from "./data.json";
+import superagent from "superagent";
+import * as moment from 'moment';
 
 import "./table.scss"
 
@@ -12,20 +14,30 @@ class Table extends React.Component {
     };
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+
+    superagent
+      .get(`http://localhost:3020/moisture`)
+      .query({year: moment().format('YYYY'), month: moment().format('MM'), day: moment().format('DD')})
+      .then(response => {
+        // console.log('RESPONSE', JSON.parse(response.text)[0].reads);
+        let data = JSON.parse(response.text)[0].reads
+        this.setState({days: data});
+      })
+      .catch(err => console.error(err));
+  };
+
   renderTableData() {
-    return this.state.days.map((days, index) => {
-      const { day, month, reads } = days;
+    console.log('state', this.state.days);
+    return this.state.days.map((day, index) => {
+      console.log(day.moistureNumber);
       return (
         <tr key={index}>
           <td>
-            {month}/{day}
+            {day.timestamp }
           </td>
-          <td>{reads[0].moistureNum}</td>
-          <td>{reads[1].moistureNum}</td>
-          <td>{reads[2].moistureNum}</td>
-          <td>{reads[3].moistureNum}</td>
-          <td>{reads[4].moistureNum}</td>
-          <td>{reads[5].moistureNum}</td>
+          <td>{day.moistureNumber}</td>
         </tr>
       );
     });
@@ -60,7 +72,7 @@ class Table extends React.Component {
             {this.renderTableData()}
           </tbody>
         </table>
-        <form onSubmit={e => this.getDatafromdb(e)}>
+        <form onSubmit={this.handleSubmit}>
           <input type="Submit" />
         </form>
       </div>
