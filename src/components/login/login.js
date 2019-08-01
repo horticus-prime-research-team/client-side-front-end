@@ -11,7 +11,7 @@ import Logo from "../../assets/plantLogo.png"
 import "./login.scss"
 
 // const API = process.env.REACT_APP_API;
-const API = "http://localhost:3020";
+const API = "https://polar-springs-72876.herokuapp.com";
 
 const If = props => {
   return !!props.condition ? props.children : null;

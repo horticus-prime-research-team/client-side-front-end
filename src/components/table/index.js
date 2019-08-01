@@ -20,7 +20,7 @@ class Table extends React.Component {
 
   handleSubmit = e => {
     superagent
-      .get(`http://localhost:3020/moisture`)
+      .get(`https://polar-springs-72876.herokuapp.com/moisture`)
       .query({year: moment().format('YYYY'), month: moment().format('MM'), day: moment().format('DD')})
       .then(response => {
         // console.log('RESPONSE', JSON.parse(response.text)[0].reads);
@@ -37,7 +37,7 @@ class Table extends React.Component {
       return (
         <tr key={index}>
           <td>
-          {moment(day.timestamp).format('HH')}:{moment(day.timestamp).format('mm')}
+           {moment(day.timestamp).format('HH')}:{moment(day.timestamp).format('mm')}
           </td>
           <td>{day.moistureNumber}</td>
         </tr>

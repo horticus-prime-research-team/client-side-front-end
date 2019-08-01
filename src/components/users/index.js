@@ -5,7 +5,7 @@ class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      API: 'http://localhost:3020',
+      API: 'https://polar-springs-72876.herokuapp.com',
       email: '',
       password: '',
       role: ''

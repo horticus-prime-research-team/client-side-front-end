@@ -3,7 +3,7 @@ import socketIOClient  from 'socket.io-client';
 
 import "./moistureStream.scss";
 
-const socket = socketIOClient('http://localhost:3016');
+const socket = socketIOClient('https://calm-river-80577.herokuapp.com');
 
 const MoistureStream = () => {
   const [moistureNumber, setMoistureNumber] = useState(0);
