@@ -49,14 +49,14 @@ describe("MoistureStream component", () => {
 
     colorShift(149)
     rerender(<EffectComponent />)
-    expect(span.textContent).toBe('Moisture Number: 0Moisture Status: dryLegend: 0 - 150 Dry, 151 - 250 Moist, 250+ Wet')
+    expect(span.textContent).toBe('Moisture Number: 0Moisture Status: dryLegend: 0 - 299 Dry, 300 - 599 Moist, 600+ Wet')
     
     colorShift(200)
     rerender(<EffectComponent />)
-    expect(span.textContent).toBe('Moisture Number: 0Moisture Status: dryLegend: 0 - 150 Dry, 151 - 250 Moist, 250+ Wet')
+    expect(span.textContent).toBe('Moisture Number: 0Moisture Status: dryLegend: 0 - 299 Dry, 300 - 599 Moist, 600+ Wet')
 
     colorShift(300)
     rerender(<EffectComponent />)
-    expect(span.textContent).toBe('Moisture Number: 0Moisture Status: dryLegend: 0 - 150 Dry, 151 - 250 Moist, 250+ Wet')
+    expect(span.textContent).toBe('Moisture Number: 0Moisture Status: dryLegend: 0 - 299 Dry, 300 - 599 Moist, 600+ Wet')
   });
 });
