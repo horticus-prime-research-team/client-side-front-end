@@ -12,40 +12,27 @@ const MoistureStream = () => {
     
   useEffect(() => {
     socket.on('moisture-data', (data) => {
-      console.log('YO');
-      console.log(data.val);
-      // data = JSON.parse(data);
       setMoistureNumber(data.val);
   
-      if(data.val <= 150 ){
-        console.log(data.val);
-        console.log('we dry folks');
+      if(data.val <= 299 ){
         setMoistureStatus("Dry");
         setMoistureIndicatorColor(`dryStyle`);
-      } else if (data.val >= 151 && data.val <= 250 ){
-        console.log('we moist folks');
+      } else if (data.val >= 300 && data.val <= 599 ){
         setMoistureStatus("Moist");
         setMoistureIndicatorColor(`moistStyle`);
       } else{
-        console.log(data.val);
-        console.log('we wet folks');
         setMoistureStatus("Wet");
         setMoistureIndicatorColor('wetStyle');
       }
     })
   }, []);
 
-
-
-
-
-
   return (
     <section className="moistureStream">
-      <h2>Moisture Number: {moistureNumber}</h2>
-      <h2>Moisture Status: {moistureStatus}</h2>
+      <h2 className='number'>Moisture Number: {moistureNumber}</h2>
       <div className={moistureIndicatorColor} />
-      <p>Legend: 0 - 150 Dry, 151 - 250 Moist, 250+ Wet</p>
+      <h2 className='status'>Moisture Status: {moistureStatus}</h2>
+      <p className='legend'>Legend: 0 - 299 Dry, 300 - 599 Moist, 600+ Wet</p>
     </section>
   );
 };
