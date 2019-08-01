@@ -3,7 +3,7 @@ import socketIOClient  from 'socket.io-client';
 
 import "./moistureStream.scss";
 
-const socket = socketIOClient('http://localhost:3006');
+const socket = socketIOClient('http://localhost:3016');
 
 const MoistureStream = () => {
   const [moistureNumber, setMoistureNumber] = useState(0);
@@ -14,20 +14,22 @@ const MoistureStream = () => {
     
   useEffect(() => {
     socket.on('moisture-data', (data) => {
-      data = JSON.parse(data);
-      setMoistureNumber(data.moistureNumber);
+      console.log('YO');
+      console.log(data.val);
+      // data = JSON.parse(data);
+      setMoistureNumber(data.val);
   
-      if(data.moistureNumber <= 150 ){
-        console.log(data.moistureNumber);
+      if(data.val <= 150 ){
+        console.log(data.val);
         console.log('we dry folks');
         setMoistureStatus("Dry");
         setMoistureIndicatorColor(`dryStyle`);
-      } else if (data.moistureNumber >= 151 && data.moistureNumber <= 250 ){
+      } else if (data.val >= 151 && data.val <= 250 ){
         console.log('we moist folks');
         setMoistureStatus("Moist");
         setMoistureIndicatorColor(`moistStyle`);
       } else{
-        console.log(data.moistureNumber);
+        console.log(data.val);
         console.log('we wet folks');
         setMoistureStatus("Wet");
         setMoistureIndicatorColor('wetStyle');
