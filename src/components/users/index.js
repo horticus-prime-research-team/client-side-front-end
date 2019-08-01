@@ -19,7 +19,7 @@ const Users = () => {
     <select>
       <option value="admin">Research</option>
       <option value="senior">Research Asst</option>
-      <option value="asssitant">User</option>
+      <option value="assistant">User</option>
     </select>
 
       <input type="submit" value="Create User" />
