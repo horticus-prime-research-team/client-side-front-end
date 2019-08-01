@@ -17,18 +17,23 @@ const MoistureStream = () => {
       data = JSON.parse(data);
       setMoistureNumber(data.moistureNumber);
   
-      if(moistureNumber <= 150 ){
+      if(data.moistureNumber <= 150 ){
+        console.log(data.moistureNumber);
+        console.log('we dry folks');
         setMoistureStatus("Dry");
         setMoistureIndicatorColor(`dryStyle`);
-      } else if (moistureNumber >= 151 || moistureNumber <= 250 ){
+      } else if (data.moistureNumber >= 151 && data.moistureNumber <= 250 ){
+        console.log('we moist folks');
         setMoistureStatus("Moist");
         setMoistureIndicatorColor(`moistStyle`);
       } else{
+        console.log(data.moistureNumber);
+        console.log('we wet folks');
         setMoistureStatus("Wet");
         setMoistureIndicatorColor('wetStyle');
       }
     })
-  })
+  }, []);
 
 
 
