@@ -5,6 +5,7 @@ import superagent from "superagent";
 import MoistureStream from "../moistureStream";
 import Table from "../table";
 import Chart from "../chart";
+import User from "../users";
 import Logo from "../../assets/plantLogo.png"
 
 import "./login.scss"
@@ -46,9 +47,6 @@ class Login extends React.Component {
         <If condition={this.context.loggedIn}>
           <button onClick={this.context.logout}>Log Out</button>
           {/* Add here MoistureStream, Table and Chart after editing */}
-          <MoistureStream />
-          <Table />
-          <Chart />
 
 
 
@@ -77,8 +75,10 @@ class Login extends React.Component {
           </section>
         </If>
 
-
-        
+        <MoistureStream />
+        <Table />
+        <Chart />
+        <User />
       </>
     );
   }
