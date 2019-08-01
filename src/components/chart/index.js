@@ -50,19 +50,6 @@ export default class BarGraph extends React.Component {
   };
 
   getDataFromDB = e => {
-
-    // // Api db request AKA results then...
-    // let incomingData = {
-    //   year: 2019,
-    //   month: 7,
-    //   day: 28,
-    //   reads: [
-    //     { timeStamp: "2019-07-30T00:00:53.798Z", moistureNum: 300 },
-    //     { timeStamp: "2019-07-30T00:15:53.798Z", moistureNum: 250 },
-    //     { timeStamp: "2019-07-30T00:30:53.798Z", moistureNum: 225 }
-    //   ]
-    // };
-
     let newTime = this.state.reading.reduce((acc, curr) => {
       // console.log(curr.timestamp);
       // curr = new Date(curr.timeStamp);

@@ -14,9 +14,11 @@ class Table extends React.Component {
     };
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
+  componentDidMount() {
+    this.handleSubmit();
+  }
 
+  handleSubmit = e => {
     superagent
       .get(`http://localhost:3020/moisture`)
       .query({year: moment().format('YYYY'), month: moment().format('MM'), day: moment().format('DD')})
@@ -35,7 +37,7 @@ class Table extends React.Component {
       return (
         <tr key={index}>
           <td>
-            {day.timestamp }
+          {moment(day.timestamp).format('HH')}:{moment(day.timestamp).format('mm')}
           </td>
           <td>{day.moistureNumber}</td>
         </tr>
@@ -72,9 +74,6 @@ class Table extends React.Component {
             {this.renderTableData()}
           </tbody>
         </table>
-        <form onSubmit={this.handleSubmit}>
-          <input type="Submit" />
-        </form>
       </div>
     );
   }
