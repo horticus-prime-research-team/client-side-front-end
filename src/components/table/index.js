@@ -31,15 +31,22 @@ class Table extends React.Component {
   };
 
   renderTableData() {
-    console.log('state', this.state.days);
     return this.state.days.map((day, index) => {
-      console.log(day.moistureNumber);
       return (
-        <tr key={index}>
-          <td>
-           {moment(day.timestamp).format('HH')}:{moment(day.timestamp).format('mm')}
+        <tr className='tr' key={index}>
+          <td className='td'>
+           {moment(day.timestamp).format('YYYY')}
           </td>
-          <td>{day.moistureNumber}</td>
+          <td className='td'>
+           {moment(day.timestamp).format('MM')}
+          </td>
+          <td className='td'>
+           {moment(day.timestamp).format('DD')}
+          </td>
+          <td className='td'>
+           {moment(day.timestamp).format('hh')}:{moment(day.timestamp).format('mm')}
+          </td>
+          <td className='td'>{day.moistureNumber}</td>
         </tr>
       );
     });
@@ -48,13 +55,11 @@ class Table extends React.Component {
   renderTableHeader() {
     return (
       <>
-        <th>Day</th>
-        <th>00:00</th>
-        <th>04:00</th>
-        <th>08:00</th>
-        <th>12:00</th>
-        <th>16:00</th>
-        <th>20:00</th>
+        <th className='th'>Years</th>
+        <th className='th'>Months</th>
+        <th className='th'>Days</th>
+        <th className='th'>Time</th>
+        <th className='th'>Data</th>
       </>
     );
   }
@@ -68,7 +73,7 @@ class Table extends React.Component {
     return (
       <div>
         <h1 id="title">Moisture Level</h1>
-        <table>
+        <table className='table'>
           <tbody>
             <tr>{this.renderTableHeader()}</tr>
             {this.renderTableData()}
