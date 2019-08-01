@@ -31,6 +31,9 @@ VSCode, Trello, Github, git, Node.js, Express, Raspberry Pi, a Grove Moisture Se
 ## Languages
 * JavaScript
 
+## Deployment
+[AWS](http://hp-v2.s3-website-us-west-2.amazonaws.com/)
+
 ### Version 1.0.0
 ### Libraries and Frameworks
 * React
