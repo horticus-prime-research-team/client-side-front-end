@@ -1,37 +1,54 @@
 .moistureStream {
   color: black;
   outline: 1px black solid;
+  height: 200px;
+  width: 60%;
+  padding-top: 30px;
+  padding-left: 20px;
 }
 
 .dryStyle {
   padding: 10;
-  margin: 20;
-  display: inline-block;
+  // display: inline-block;
   background-color: red;
   border-radius: 50%;
   width: 100px;
   height: 100px;
-  outline: 1px black solid;
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px;
 }
 
 .moistStyle {
   padding: 10;
-  margin: 20;
-  display: inline-block;
-  background-color: aqua;
+  // display: inline-block;
+  background-color: yellow;
   border-radius: 50%;
   width: 100px;
   height: 100px;
   outline: 1px black solid;
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px;
 }
 
 .wetStyle {
   padding: 10;
-  margin: 20;
-  display: inline-block;
-  background-color: blue;
+  // display: inline-block;
+  background-color: green;
   border-radius: 50%;
   width: 100px;
   height: 100px;
   outline: 1px black solid;
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+
+.legend {
+  clear: both;
+}
+
+.status {
+  margin-top: 10px;
 }
