@@ -93,4 +93,4 @@ We are a research team that has been given a back-end system for monitoring the 
 
 #### Data Flow Diagram
 
-[UML](TBD)
+[Client Side Front End Diagram](src/assets/client-side-front-end.JPG)
