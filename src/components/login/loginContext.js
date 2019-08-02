@@ -19,16 +19,15 @@ class LoginProvider extends React.Component {
 
   login = token => {
     cookie.save("auth", token);
-    this.setLoginState(true);
+    this.setLoginState(true, token);
   };
 
   logout = () => {
     cookie.remove("auth");
-    this.setLoginState(false);
+    this.setLoginState(false, '');
   };
 
-  setLoginState = loggedIn => {
-    let token = cookie.load("auth");
+  setLoginState = (loggedIn, token) => {
     this.setState({ token, loggedIn });
   };
 
