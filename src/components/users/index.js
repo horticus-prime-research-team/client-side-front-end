@@ -2,7 +2,7 @@ import React from "react";
 import superagent from "superagent";
 import "./users.scss"
 
-class Users extends React.Component {
+class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,4 +60,4 @@ class Users extends React.Component {
   }
 };
 
-export default Users;
+export default User;

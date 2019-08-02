@@ -8,7 +8,7 @@ import AboutUs from "../about-us";
 import { Switch, Route } from 'react-router-dom'
 
 
-const Main = () => (
+const Body = () => (
   <div>
     <Header />
     <main>
@@ -23,4 +23,4 @@ const Main = () => (
   </div>
 );
 
-export default Main;
+export default Body;

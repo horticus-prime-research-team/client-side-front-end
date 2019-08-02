@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const render = (condition = false, children = null) => {
   return !!condition ? children : null;
