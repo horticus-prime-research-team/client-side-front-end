@@ -2,10 +2,8 @@ import React from "react";
 import { LoginContext } from "./loginContext";
 import superagent from "superagent";
 
-import MoistureStream from "../moistureStream";
-import Table from "../table";
-import Chart from "../chart";
-import User from "../users";
+import Body from "../body"
+
 import Logo from "../../assets/plantLogo.png"
 
 import "./login.scss"
@@ -45,29 +43,20 @@ class Login extends React.Component {
     return (
       <>
         <If condition={this.context.loggedIn}>
-          <button onClick={this.context.logout}>Log Out</button>
-          {/* Add here MoistureStream, Table and Chart after editing */}
-
-          <MoistureStream />
-          <Table />
-          <Chart />
-          <User />
-
-
+          <button className="logOff" onClick={this.context.logout}>Log Out</button>
+          <Body handleLogOff={this.context.logout}/>
         </If>
 
         <If condition={!this.context.loggedIn}>
           <section className="login" >
-
+            <h1>Horticus Prime v2</h1>
             <img src={Logo} alt="logo"/>
-
             <form className="loginForm" onSubmit={this.handleSubmit}>
               <input
                 placeholder="Email"
                 name="email"
                 onChange={this.handleChange}
               />
-
               <input
                 placeholder="Password"
                 name="password"

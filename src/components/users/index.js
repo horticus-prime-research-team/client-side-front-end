@@ -1,5 +1,6 @@
 import React from "react";
 import superagent from "superagent";
+import "./users.scss"
 
 class Users extends React.Component {
   constructor(props) {
@@ -28,16 +29,13 @@ class Users extends React.Component {
 
   handleChange = e => {
     e.preventDefault();
-
-    // console.log(typeof e.target.value);
-    // console.log(e.target.value);
     this.setState({ [e.target.name]: e.target.value });
     console.log(e.target.value);
   };
   
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit}>
         <input 
           placeholder="Email" 
           name="email" 
