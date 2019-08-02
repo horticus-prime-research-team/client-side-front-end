@@ -73,6 +73,7 @@ class Table extends React.Component {
     return (
       <div>
         <h1 id="title">Moisture Level</h1>
+        <p>Displays saved data</p>
         <table className='table'>
           <tbody>
             <tr>{this.renderTableHeader()}</tr>

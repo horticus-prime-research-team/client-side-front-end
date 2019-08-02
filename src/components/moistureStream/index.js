@@ -29,6 +29,7 @@ const MoistureStream = () => {
 
   return (
     <section className="moistureStream">
+      <p className="description">Reads live incoming data from sensor</p>
       <h2 className='number'>Moisture Number: {moistureNumber}</h2>
       <div className={moistureIndicatorColor} />
       <h2 className='status'>Moisture Status: {moistureStatus}</h2>

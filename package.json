@@ -17,8 +17,9 @@
     "react-cookies": "latest",
     "react-dom": "16.8.6",
     "react-jsonschema-form": "latest",
-    "react-router-dom": "5.0.1",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-styleguidist": "^9.1.13",
     "socket.io-client": "^2.2.0",
     "superagent": "latest",
     "uuid": "latest"
@@ -28,7 +29,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "browserslist": {
     "production": [
