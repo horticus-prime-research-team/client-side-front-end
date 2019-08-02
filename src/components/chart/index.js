@@ -11,9 +11,16 @@ export default class BarGraph extends React.Component {
         labels: [],
         datasets: [
           {
-            label: "Moisture Level",
+            label: "Moisture Level Day 1",
             backgroundColor: "rgb(255, 99, 132)",
             borderColor: "rgb(255, 99, 132)",
+            data: [],
+            fill: false
+          },
+          {
+            label: "Moisture Level Day 2",
+            backgroundColor: "rgb(42,168,255)",
+            borderColor: "rgb(42,168,255)",
             data: [],
             fill: false
           }
@@ -30,40 +37,63 @@ export default class BarGraph extends React.Component {
 
   handleSubmit = e => {
     superagent
-      .get(`https://polar-springs-72876.herokuapp.com/moisture`)
-      .query({year: moment().format('YYYY'), month: moment().format('MM'), day: moment().format('DD')})
+      .get(`https://polar-springs-72876.herokuapp.com/moistures`)
       .then(response => {
         // console.log('RESPONSE', JSON.parse(response.text)[0].reads);
-        let data = JSON.parse(response.text)[0].reads
-        this.setState({reading: data});
-        console.log('READING', this.state.reading);
-        this.getDataFromDB();
+        let data1 = response.body[0];
+        let data2 = response.body[1];
+        this.setState({reading: response.body});
+        this.getDataFromDB([data1, data2]);
       })
       .catch(err => console.error(err));
   };
 
-  getDataFromDB = e => {
-    let newTime = this.state.reading.reduce((acc, curr) => {
-      // console.log(curr.timestamp);
-      // curr = new Date(curr.timeStamp);
-      curr = `${moment(curr.timestamp).format('HH')}:${moment(curr.timestamp).format('mm')}`;
-      acc.push(curr);
-      return acc;
-    }, []);
+  getDataFromDB = (dataArr) => {
+    let arr = [];
+    for (let i = 0; i < dataArr.length; i++) {
+      let newTime = dataArr[i].reads.reduce((acc, curr) => {
+        // console.log(curr.timestamp);
+        // curr = new Date(curr.timeStamp);
+        curr = `${moment(curr.timestamp).format('HH')}:${moment(curr.timestamp).format('mm')}`;
+        acc.push(curr);
+        return acc;
+      }, []);
 
-    let newMoistureNum = this.state.reading.reduce((acc, curr) => {
-      curr = curr.moistureNumber;
-      acc.push(curr);
-      return acc;
-    }, []);
+      let newMoistureNum = dataArr[i].reads.reduce((acc, curr) => {
+        curr = curr.moistureNumber;
+        acc.push(curr);
+        return acc;
+      }, []);
 
+      arr.push([newTime, newMoistureNum]);
+    }
+
+    this.setChartData(arr);
+  };
+
+  setChartData(arr) {
     this.setState(prevState => ({
       data: {
-        labels: newTime,
-        datasets: [{ ...prevState.data.datasets[0], data: newMoistureNum }]
+        labels: arr[0][0],
+        datasets: [
+          {
+            label: "Moisture Level Day 1",
+            backgroundColor: "rgb(255, 99, 132)",
+            borderColor: "rgb(255, 99, 132)",
+            data: arr[0][1],
+            fill: false
+          },
+          {
+            label: "Moisture Level Day 2",
+            backgroundColor: "rgb(42,168,255)",
+            borderColor: "rgb(42,168,255)",
+            data: arr[1][1],
+            fill: false
+          }
+        ]
       }
     }));
-  };
+  }
 
 
 
