@@ -7,6 +7,7 @@ import Table from "../table";
 import Chart from "../chart";
 import User from "../users";
 import Logo from "../../assets/plantLogo.png"
+import About from "../about";
 
 import "./login.scss"
 
@@ -22,7 +23,7 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "" };
+    this.state = { email: "", password: "", aboutToggle: false };
   }
 
   handleChange = e => {
@@ -40,22 +41,36 @@ class Login extends React.Component {
       })
       .catch(err => console.error(err));
   };
-
+  
+  aboutUs = (e) => {
+    e.preventDefault();
+  
+    this.setState({aboutToggle: !this.state.aboutToggle});
+  }
+  
   render() {
     return (
       <>
         <If condition={this.context.loggedIn}>
-          <button onClick={this.context.logout}>Log Out</button>
-          {/* Add here MoistureStream, Table and Chart after editing */}
-
-          <MoistureStream />
-          <Table />
-          <Chart />
-          <User />
-
-
+  
+          <If condition={this.state.aboutToggle}>
+            <About aboutUs={this.aboutUs} />
+          </If>
+  
+          <If condition={this.state.aboutToggle === false}>
+            <p onClick={this.aboutUs}>About Us</p>
+            <button onClick={this.context.logout}>Log Out</button>
+            {/* Add here MoistureStream, Table and Chart after editing */}
+  
+            <MoistureStream />
+            <Table />
+            <Chart />
+            <User />
+  
+            <About />
+          </If>
         </If>
-
+  
         <If condition={!this.context.loggedIn}>
           <section className="login" >
 
@@ -67,7 +82,7 @@ class Login extends React.Component {
                 name="email"
                 onChange={this.handleChange}
               />
-
+  
               <input
                 placeholder="Password"
                 name="password"
