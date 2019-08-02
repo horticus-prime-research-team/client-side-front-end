@@ -1,0 +1,2 @@
+The Chart Component
+<BarGraph />
